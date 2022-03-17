@@ -31,6 +31,15 @@
                 @enderror
             </div>
 
+            <select class="form-select" aria-label="Default select example" name="category_id">
+                <option value="">Select category</option>
+                @foreach ($categories as $category)
+                    <option value="{{$category["id"]}}">
+                        {{$category["name"]}}
+                    </option>
+                @endforeach
+            </select>
+
             <div class="text-center">
                 <button type="submit" class="btn btn-secondary my-5 text-center">Salva</button>
             </div>
