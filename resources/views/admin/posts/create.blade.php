@@ -4,7 +4,7 @@
     <div class="container">
         <h3 class="text-center my-5">Scrivi un nuovo articolo</h3>
 
-        <form action="{{route('admin.posts.store')}}" method="POST">
+        <form action="{{route('admin.posts.store')}}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -30,6 +30,11 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input @error('image') is-invalid @enderror type="file" class="form-control-file" name="image">
+              </div>
 
             <select class="form-select" aria-label="Default select example" name="category_id">
                 <option value="">Select category</option>

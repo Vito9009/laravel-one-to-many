@@ -6,13 +6,15 @@ use App\Post;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class PostController extends Controller
 {
     protected $validation = [
         "title" => 'required|max:255',
         "content" => 'required',
-        "category_id" => 'nullable|exists:categories,id'
+        "category_id" => 'nullable|exists:categories,id',
+        "image" => 'nullable|mimes:jpeg,jpg,bmp,png'
     ];
 
     /**
@@ -50,6 +52,11 @@ class PostController extends Controller
         $request->validate($this->validation);
 
         $data = $request->all();
+
+        if(isset($data["image"])){
+            $img_path = Storage::put('uploads', $data["image"]);
+            $data["image"] = $img_path;
+        }
 
         $slug = Str::slug($data['title']);
         
